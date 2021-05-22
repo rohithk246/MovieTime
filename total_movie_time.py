@@ -1,11 +1,14 @@
 import omdb
-import json, re
+import json
+import re
+
 
 def movieslist(filename):
     with open(filename, "r", encoding="utf8") as file:
         return file.readlines()
 
-movies = movieslist("../movies.txt")
+
+movies = movieslist("movies.txt")
 print("--------------------------------")
 print("Total movies watched:", len(movies))
 
@@ -16,7 +19,7 @@ for movie in movies:
     moviename = re.sub("[^\w ,':]", "", movie.strip())
     res = omdb.request(t=moviename, apikey='71706981')
     movie = json.loads(res.content)
-    
+
     if movie['Response'] == 'True':
         time = str(movie['Runtime']).replace(' min', '')
         if time.isdigit():
